@@ -1,0 +1,141 @@
+scalar Date
+
+type Employee {
+    empId: ID!
+    birthDate: String!
+    firstName: String!
+    lastName: String!
+    gender: String!
+    hireDate: String!
+    salaries: [Salary]
+    deptEmp: [DeptEmp]
+    deptManager: [DeptManager]
+    titles: [Title]
+}
+
+type Department {
+    deptId: ID!
+    deptName: String!
+    employees: [Employee]
+    managers: [Employee]
+}
+
+type Salary {
+    empId: ID!
+    salary: Int!
+    fromDate: Date!
+    toDate: Date!
+    employee: Employee!
+}
+
+type Title {
+    empId: ID!
+    title: String!
+    fromDate: Date!
+    toDate: Date!
+    employee: Employee!
+}
+
+type DeptEmp {
+    empId: ID!
+    deptId: ID!
+    fromDate: Date!
+    toDate: Date!
+    employee: Employee!
+    department: Department!
+}
+
+type DeptManager {
+    empId: ID!
+    deptId: ID!
+    fromDate: Date!
+    toDate: Date!
+    employee: Employee!
+    department: Department!
+}
+
+type Query {
+    employees: [Employee]
+    employee(empId: ID!): Employee
+
+    departments: [Department]
+    department(deptId: ID!): Department
+
+    salaries(empId: ID!): [Salary]
+    titles(empId: ID!): [Title]
+    deptEmp(empId: ID!): [DeptEmp]
+    deptManagers(deptId: ID!): [DeptManager]
+}
+
+type Mutation {
+    # Employee
+    createEmployee(
+        firstName: String!
+        lastName: String!
+        gender: String!
+        birthDate: String!
+        hireDate: String!
+    ): Employee
+
+    updateEmployee(
+        empId: ID!
+        birthDate: String
+        firstName: String
+        lastName: String
+        gender: String
+        hireDate: String
+    ): Employee
+
+    deleteEmployee(empId: ID!): Employee
+
+    # Department
+    createDepartment(deptName: String!): Department
+
+    # Salary
+    createSalary(
+        empId: ID!
+        salary: Int!
+        fromDate: Date!
+        toDate: Date!
+    ): Salary
+
+    updateSalary(
+        empId: ID!
+        fromDate: Date!
+        salary: Int!
+    ): Salary
+
+    deleteSalary(
+        empId: ID!
+        fromDate: Date!
+    ): Salary
+
+    # Title
+    createTitle(
+        empId: ID!
+        title: String!
+        fromDate: Date!
+        toDate: Date!
+    ): Title
+
+    updateTitle(
+        empId: ID!
+        fromDate: Date!
+        title: String!
+    ): Title
+
+    # Department Assignment
+    assignEmployeeToDepartment(
+        empId: ID!
+        deptId: ID!
+        fromDate: Date!
+        toDate: Date!
+    ): DeptEmp
+
+    assignManagerToDepartment(
+        empId: ID!
+        deptId: ID!
+        fromDate: Date!
+        toDate: Date!
+    ): DeptManager
+}
