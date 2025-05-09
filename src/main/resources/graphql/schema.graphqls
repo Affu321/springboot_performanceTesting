@@ -124,6 +124,13 @@ type Mutation {
         title: String!
     ): Title
 
+    deleteTitle(
+        empId: ID!
+        title: String!
+        fromDate: Date!
+    ): Title
+
+
     # Department Assignment
     assignEmployeeToDepartment(
         empId: ID!

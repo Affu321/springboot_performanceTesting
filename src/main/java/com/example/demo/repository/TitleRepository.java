@@ -10,4 +10,6 @@ import java.util.Optional;
 public interface TitleRepository extends JpaRepository<Title, Integer> {
     List<Title> findByEmployee_EmpId(Integer empId);
     Optional<Title> findByEmpIdAndFromDate(Integer empId, LocalDate fromDate);
+    Optional<Title> findByEmpIdAndTitleAndFromDate(Integer empId, String title, LocalDate fromDate);
+
 }

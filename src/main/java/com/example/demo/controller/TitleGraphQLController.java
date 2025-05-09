@@ -60,4 +60,17 @@ public class TitleGraphQLController {
         existing.setTitle(title);
         return titleRepository.save(existing);
     }
+    @MutationMapping
+    public Title deleteTitle(
+            @Argument Integer empId,
+            @Argument String title,
+            @Argument LocalDate fromDate
+    ) {
+        Title existing = titleRepository.findByEmpIdAndTitleAndFromDate(empId, title, fromDate)
+                .orElseThrow(() -> new RuntimeException("Title record not found"));
+
+        titleRepository.delete(existing);
+        return existing;
+    }
+
 }
